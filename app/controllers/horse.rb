@@ -5,7 +5,12 @@ end
 
 get '/horses/new' do
   @horse = Horse.new
-  erb :"/horses/new"
+
+  if request.xhr?
+    erb :"/horses/new", layout: false
+  else
+    erb :"/horses/new"
+  end
 end
 
 post '/horses' do
