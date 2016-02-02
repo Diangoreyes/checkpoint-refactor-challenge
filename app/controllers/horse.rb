@@ -18,7 +18,7 @@ post '/horses' do
 
   if @horse.save
     if request.xhr?
-      erb :'/partials/_show_horse', layout: false, locals: {horse: horse}
+      erb :"/partials/_show_horse", layout: false, locals: {horse: @horse}
     else
       redirect '/horses'
     end

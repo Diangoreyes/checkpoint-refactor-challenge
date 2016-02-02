@@ -5,7 +5,7 @@ $(document).ready(function() {
 // calls all methods below at specific events
 var bindListeners = function() {
   $("a#new-horse").on('click', displayNewForm);
-  $(".container").submit(addNewHorse);
+  $(".container").on('submit', '#horse-form', addNewHorse);
 };
 
 // abstracted $.ajax() function
@@ -33,13 +33,18 @@ var displayNewForm = function(e) {
 // dynamically add newly created horse to index page
 var addNewHorse = function(e) {
   e.preventDefault();
-  var url = $("#horse-form").attr("action"); // /horses
-  var type = $("#horse-form").attr("method"); // post
-  var data = $("#horse-form").serialize(); // data from horse form
+  var $form = $(e.target);
+  var payload = $form.serialize(); // data from horse form
+  console.log($form);
+  console.log(payload);
 
-  ajaxRequest(url, type, data).done(function(response) {
-    $("#new-horse-form-container").hide();
-    $("new-horse").show();
-    $("#horse-list").append(response);
+  $.post('/horses', payload)
+    .done(function(response) {
+      console.log(response);
+      $("#new-horse-form-container").hide();
+      $("#new-horse").show();
+      $("#horse-list").append(response);
+    }).fail(function(){
+      console.error(arguments);
   });
 };
