@@ -2,3 +2,16 @@
   <h5>Breed: <%= @horse.breed %><h5>
   <h5>Age: <%= @horse.age %><h5>
 </div>
+
+<div class="horse-details horse-buttons">
+
+  <form method="GET" action="/horses/<%= @horse.id %>/edit" id="edit-horse">
+    <input class="buttons" type="submit" value="Edit">
+  </form>
+
+  <form method="POST" action="/horses/<%= @horse.id %>" id="delete-horse">
+    <input type="hidden" name="_method" value="DELETE">
+    <input class="buttons" type="submit" value="Delete">
+  </form>
+
+</div>
