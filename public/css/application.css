@@ -37,3 +37,12 @@ input {
 .caballo-form {
   margin-top: 50px;
 }
+
+.horse-buttons {
+  display: inline-block;
+}
+
+.buttons {
+  margin: 0;
+  display: block;
+}

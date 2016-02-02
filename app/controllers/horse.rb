@@ -37,3 +37,20 @@ get '/horses/:id' do
     erb :"/horses/show"
   end
 end
+
+get '/horses/:id/edit' do
+  @horse = Horse.find(params[:id])
+  erb :"/horses/edit"
+end
+
+put '/horses/:id' do
+  @horse = Horse.find(params[:id])
+  @horse.update_attributes(params[:horse])
+  redirect '/horses'
+end
+
+delete '/horses/:id' do
+  horse = Horse.find(params[:id])
+  horse.destroy
+  redirect '/horses'
+end
