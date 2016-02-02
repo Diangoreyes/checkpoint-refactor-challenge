@@ -1,7 +1,7 @@
 <h2>My Horses</h2>
 <div id='horse-list'>
   <% @horses.each do |horse| %>
-    <%= erb :"/partials/_horse_details", layout: false, locals: {horse: horse} %>
+    <%= erb :"/partials/_show_horse", layout: false, locals: {horse: horse} %>
   <% end %>
 </div>
 

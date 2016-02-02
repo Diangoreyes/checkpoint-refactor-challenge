@@ -5,17 +5,18 @@ $(document).ready(function() {
 // calls all methods below at specific events
 var bindListeners = function() {
   $("a#new-horse").on('click', displayNewForm);
-  $().on('submit', addNewHorse);
+  $(".container").submit(addNewHorse);
 };
 
 // abstracted $.ajax() function
-var ajaxRequest = function(url, method) {
+var ajaxRequest = function(url, type, data) {
+  console.log("Ajax Request processing!")
   return $.ajax({
     url: url,
-    method: method,
-    // dataType: dataType
+    type: type,
+    data: data
   });
-}
+};
 
 // dynamically load the new horse form to index page
 var displayNewForm = function(e) {
@@ -32,5 +33,13 @@ var displayNewForm = function(e) {
 // dynamically add newly created horse to index page
 var addNewHorse = function(e) {
   e.preventDefault();
-  console.log(e);
-}
+  var url = $("#horse-form").attr("action"); // /horses
+  var type = $("#horse-form").attr("method"); // post
+  var data = $("#horse-form").serialize(); // data from horse form
+
+  ajaxRequest(url, type, data).done(function(response) {
+    $("#new-horse-form-container").hide();
+    $("new-horse").show();
+    $("#horse-list").append(response);
+  });
+};
