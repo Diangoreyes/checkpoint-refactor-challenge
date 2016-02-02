@@ -6,6 +6,7 @@ $(document).ready(function() {
 var bindListeners = function() {
   $("a#new-horse").on('click', displayNewForm);
   $(".container").on('submit', '#horse-form', addNewHorse);
+  $("#horse-list").on('click', ".horse-link", showHorse);
 };
 
 // abstracted $.ajax() function
@@ -33,18 +34,32 @@ var displayNewForm = function(e) {
 // dynamically add newly created horse to index page
 var addNewHorse = function(e) {
   e.preventDefault();
-  var $form = $(e.target);
+  var $form = $(e.target); // the form itself
   var payload = $form.serialize(); // data from horse form
-  console.log($form);
-  console.log(payload);
 
   $.post('/horses', payload)
     .done(function(response) {
-      console.log(response);
+      // console.log(response); // erb details from _show_horse
       $("#new-horse-form-container").hide();
       $("#new-horse").show();
       $("#horse-list").append(response);
     }).fail(function(){
       console.error(arguments);
   });
+};
+
+var showHorse = function(e) {
+  e.preventDefault();
+  var url = $(this).attr("href");
+  // console.log(this); // <a></a> on which you clicked
+  // console.log(url); // '/horses/:id'
+  var horseId = url.match(/\d+/)[0];
+  // console.log(horseId) // i.e. 2
+
+  $.get(url)
+    .done(function(response) {
+      // console.log(response); // details from _horse_details.erb
+      $(".horse-details").remove();
+      $("#each-horse-container div#horse" + horseId).append(response)
+    });
 };

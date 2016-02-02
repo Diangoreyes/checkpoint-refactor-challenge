@@ -4,7 +4,9 @@
 
   <% @horses.each do |horse| %>
 
+  <div id='each-horse-container'>
     <%= erb :"/partials/_show_horse", layout: false, locals: {horse: horse} %>
+  </div>
 
   <% end %>
 
