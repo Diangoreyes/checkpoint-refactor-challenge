@@ -20,8 +20,40 @@
   <title></title>
 </head>
 <body>
+
+  <div id="nav-buttons" class="container">
+    <ul class="nav">
+      <% if current_user %>
+        <li>
+          <form class="" action="/users/<%= "#{current_user.id}" %>" method="GET">
+            <button type="submit" class="" id='profile'>My Profile</button>
+          </form>
+        </li>
+        <li>
+          <form class="" action="/sessions/<%= current_user.id %>" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="" id='sign_out'>Sign-Out</button>
+          </form>
+        </li>
+      <% else %>
+        <li>
+          <form class="" action="/login" method="GET" id='log_in_form'>
+            <button type="submit" class="" id='log_in'>Sign-In</button>
+          </form>
+        </li>
+        <li>
+          <form class="" action="/users/new" method="GET" id="register_form">
+            <button type="submit" class="" id='register'>Register</button>
+          </form>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
   <div class="container">
+
   <%= yield %>
+
   </div>
 </body>
 </html>

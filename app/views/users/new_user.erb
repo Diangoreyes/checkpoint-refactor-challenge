@@ -1,0 +1,12 @@
+<h1>Register New Account</h1>
+
+<% if @errors %>
+  <p><%= @errors %></p>
+<% end %>
+
+<form id="new-user-form" action="/sessions" method="POST">
+  <input type="text" placeholder="your name" name="name">
+  <input type="email" placeholder="email@email.com" name="email">
+  <input type="password" placeholder='Password' name='password'>>
+  <input type="submit" value="Register!">
+</form>

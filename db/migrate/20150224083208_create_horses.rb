@@ -4,6 +4,7 @@ class CreateHorses < ActiveRecord::Migration
       t.string :name
       t.string :breed
       t.integer :age
+      t.integer :owner_id
 
       t.timestamps
     end
