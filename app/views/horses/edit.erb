@@ -1,4 +1,13 @@
 <div id="edit-horse-form-container">
+
+  <div class="errors">
+    <% if @horse.errors %>
+      <% @horse.errors.full_messages.each do |error| %>
+        <ul><%= error %></ul>
+      <% end %>
+    <% end %>
+  </div>
+
   <h2>Edit <%= @horse.name %></h2>
 
   <form id="edit-horse-form" method="POST" action="/horses/<%= @horse.id %>">

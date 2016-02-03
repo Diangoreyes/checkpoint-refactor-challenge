@@ -45,12 +45,40 @@ end
 
 put '/horses/:id' do
   @horse = Horse.find(params[:id])
-  @horse.update_attributes(params[:horse])
-  redirect '/horses'
+  if @horse.update_attributes(params[:horse])
+    if request.xhr?
+      erb :"/horses/edit", layout: false
+    else
+      redirect '/horses'
+    end
+  else
+    redirect "/horses/#{ @horse.id }/edit"
+  end
 end
 
 delete '/horses/:id' do
-  horse = Horse.find(params[:id])
-  horse.destroy
+  @horse = Horse.find(params[:id])
+  @horse.destroy
   redirect '/horses'
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
