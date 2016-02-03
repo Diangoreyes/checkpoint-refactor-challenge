@@ -7,6 +7,7 @@ var bindListeners = function() {
   $("a#new-horse").on('click', displayNewForm);
   $(".container").on('submit', '#horse-form', addNewHorse);
   $("#horse-list").on('click', ".horse-link", showHorse);
+  $("#horse-list").on('submit', "#edit-horse", editHorse);
 };
 
 // abstracted $.ajax() function
@@ -52,20 +53,57 @@ var addNewHorse = function(e) {
 var showHorse = function(e) {
   e.preventDefault();
   var url = $(this).attr("href");
-  console.log(this); // <a></a> on which you clicked
+  // console.log(this); // <a></a> on which you clicked
   // console.log(url); // '/horses/:id'
   var horseId = url.match(/\d+/)[0];
   // console.log(horseId) // i.e. 2
 
   $.get(url)
     .done(function(response) {
-      console.log(response); // details from _horse_details.erb
+      // console.log(response); // details from _horse_details.erb
       $(".horse-details").remove();
-      var test = $(".each-horse-container div#horse" + horseId)
-      console.log(test);
       $("div#horse" + horseId).append(response)
     });
 };
 
 // dynamically edit horse
-// dynamically delete horse (use alert?)
+var editHorse = function(e) {
+  e.preventDefault();
+  // console.log(this); // edit button & form
+  var url = $(this).attr("action");
+
+  $.get(url)
+    .done(function(response) {
+      $(".horse-buttons").html(response);
+    });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
