@@ -3,9 +3,8 @@ get '/login' do
 end
 
 post '/sessions' do
-  user = User.find_by(email: params[:email])
-  if user && user.authentiate(params[:email], params[:password])
-    session[:id] = user.id
+  if User.authenticate(params[:email], params[:password])
+    session[:id] = User.find_by(email: params[:email]).id
     redirect '/'
   else
     status 400
@@ -14,12 +13,12 @@ post '/sessions' do
   end
 end
 
-delete 'sessions/:id' do
+delete '/sessions/:id' do
   current_user = nil
   session[:id] = nil
   redirect '/'
 end
 
-get 'session-vewer' do
+get '/session-vewer' do
   session.inspect
 end

@@ -1,4 +1,4 @@
-# get user form
+# get new user form
 get '/users/new' do
   erb :"/users/new_user"
 end

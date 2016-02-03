@@ -40,7 +40,7 @@ end
 
 get '/horses/:id/edit' do
   @horse = Horse.find(params[:id])
-  erb :"/horses/edit"
+  erb :"/horses/edit", layout: false
 end
 
 put '/horses/:id' do
